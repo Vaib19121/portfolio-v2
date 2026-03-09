@@ -1,0 +1,239 @@
+.cursor-trail {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+.cursor-dot {
+  position: fixed;
+  width: var(--size);
+  height: var(--size);
+  pointer-events: none;
+  transform: translate(-50%, -50%) rotate(0deg);
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  filter: blur(0.5px);
+  animation: float 3s ease-in-out infinite, rotate 4s linear infinite, colorShift 3s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+/* Shape variations */
+.cursor-dot.shape-circle {
+  border-radius: 50%;
+  background: linear-gradient(135deg, 
+    hsl(var(--hue), 100%, 60%), 
+    hsl(calc(var(--hue) + 40), 100%, 70%)
+  );
+  box-shadow: 
+    0 0 15px hsla(var(--hue), 100%, 60%, 0.6),
+    0 0 30px hsla(var(--hue), 100%, 60%, 0.3);
+}
+
+.cursor-dot.shape-square {
+  border-radius: 2px;
+  background: linear-gradient(45deg, 
+    hsl(var(--hue), 100%, 65%), 
+    hsl(calc(var(--hue) + 30), 100%, 75%)
+  );
+  box-shadow: 
+    0 0 12px hsla(var(--hue), 100%, 65%, 0.5);
+}
+
+.cursor-dot.shape-star {
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  background: linear-gradient(135deg, 
+    hsl(calc(var(--hue) + 20), 100%, 70%), 
+    hsl(calc(var(--hue) - 20), 100%, 80%)
+  );
+  box-shadow: 
+    0 0 20px hsla(var(--hue), 100%, 70%, 0.7);
+}
+
+.cursor-dot.shape-diamond {
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 15%;
+  background: linear-gradient(135deg, 
+    hsl(var(--hue), 100%, 55%), 
+    hsl(calc(var(--hue) + 50), 100%, 65%)
+  );
+  box-shadow: 
+    0 0 18px hsla(var(--hue), 100%, 55%, 0.6);
+}
+
+.cursor-dot.shape-sparkle {
+  clip-path: polygon(50% 0%, 59% 38%, 100% 50%, 59% 62%, 50% 100%, 41% 62%, 0% 50%, 41% 38%);
+  background: linear-gradient(90deg, 
+    hsl(var(--hue), 100%, 75%), 
+    hsl(calc(var(--hue) + 60), 100%, 85%)
+  );
+  box-shadow: 
+    0 0 25px hsla(var(--hue), 100%, 75%, 0.8);
+  animation: float 2s ease-in-out infinite, spin 2s linear infinite, colorShift 2s ease-in-out infinite;
+}
+
+/* Hovering state - expand and brighten */
+.cursor-dot.hovering {
+  transform: translate(-50%, -50%) scale(1.5);
+  opacity: 1;
+  filter: blur(0px) brightness(1.4);
+  animation: pulse 0.6s ease-in-out infinite, colorShift 1.5s ease-in-out infinite;
+}
+
+/* Enhanced animations */
+@keyframes float {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-3px);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0.9;
+  }
+}
+
+@keyframes colorShift {
+  0%, 100% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  50% {
+    filter: hue-rotate(20deg) brightness(1.2);
+  }
+}
+
+/* Opacity gradients for trail */
+.cursor-dot:nth-child(1) {
+  opacity: 0.95;
+  filter: blur(0px);
+}
+
+.cursor-dot:nth-child(n+2):nth-child(-n+5) {
+  opacity: 0.8;
+}
+
+.cursor-dot:nth-child(n+6):nth-child(-n+10) {
+  opacity: 0.6;
+}
+
+.cursor-dot:nth-child(n+11):nth-child(-n+15) {
+  opacity: 0.4;
+}
+
+.cursor-dot:nth-child(n+16):nth-child(-n+20) {
+  opacity: 0.25;
+}
+
+.cursor-dot:nth-child(n+21) {
+  opacity: 0.15;
+}
+
+/* Floating particles */
+.floating-particles {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+}
+
+.particle {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, 
+    hsla(var(--particle-hue), 100%, 70%, 1), 
+    hsla(var(--particle-hue), 100%, 50%, 0)
+  );
+  box-shadow: 
+    0 0 10px hsla(var(--particle-hue), 100%, 60%, 0.8);
+  animation: particleFade 1s ease-out forwards;
+}
+
+.particle.star {
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  border-radius: 0;
+}
+
+@keyframes particleFade {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Hide cursor trail on touch devices */
+@media (pointer: coarse) {
+  .cursor-trail,
+  .floating-particles {
+    display: none;
+  }
+}
+
+/* Custom cursor styles */
+body {
+  cursor: none;
+}
+
+a, button, input, textarea, select, [role="button"], [onclick] {
+  cursor: pointer !important;
+}
+
+/* Add glow effect to body */
+body::before {
+  content: '';
+  position: fixed;
+  pointer-events: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 245, 196, 0.3);
+  background: radial-gradient(circle, 
+    rgba(0, 245, 196, 0.15), 
+    transparent 70%
+  );
+  z-index: 9997;
+  transition: transform 0.15s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
+  animation: cursorGlow 2s ease-in-out infinite;
+}
+
+@keyframes cursorGlow {
+  0%, 100% {
+    border-color: rgba(0, 245, 196, 0.3);
+    box-shadow: 0 0 20px rgba(0, 245, 196, 0.2);
+  }
+  50% {
+    border-color: rgba(124, 58, 237, 0.4);
+    box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
+  }
+}

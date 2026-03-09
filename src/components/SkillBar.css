@@ -1,0 +1,31 @@
+.skill-bar { margin-bottom: 20px; }
+.sb-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+.sb-left { display: flex; align-items: center; gap: 8px; }
+.sb-icon {
+  font-size: 11px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  background: rgba(0,255,136,0.1);
+  color: var(--accent-green);
+  padding: 3px 7px; border-radius: 5px;
+  letter-spacing: 0.05em;
+}
+.sb-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.sb-level {
+  font-size: 13px; font-weight: 600;
+  font-family: var(--font-display);
+  color: var(--accent-green);
+}
+.sb-track {
+  height: 4px; background: rgba(255,255,255,0.06);
+  border-radius: 2px; overflow: hidden;
+}
+.sb-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+  border-radius: 2px;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
