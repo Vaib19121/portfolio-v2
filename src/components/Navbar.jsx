@@ -26,6 +26,17 @@ export default function Navbar() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [menuOpen]);
+
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="nav-inner container">
@@ -71,7 +82,11 @@ export default function Navbar() {
             {link.label}
           </Link>
         ))}
-        <a href="mailto:vaibhavmehar16@gmail.com" className="btn btn-primary" style={{marginTop: '8px', justifyContent: 'center'}}>
+        <a 
+          href="mailto:vaibhavmehar16@gmail.com" 
+          className="btn btn-primary" 
+          style={{marginTop: '12px', width: '100%', textAlign: 'center'}}
+        >
           Hire Me
         </a>
       </div>

@@ -122,8 +122,180 @@
 .edu-school { font-size: 15px; color: var(--accent-green); margin-bottom: 4px; }
 .edu-location { font-size: 13px; color: var(--text-muted); }
 
-@media (max-width: 600px) {
-  .exp-card { padding: 20px; }
-  .exp-meta { flex-direction: column; gap: 4px; }
-  .edu-card { flex-direction: column; }
+/* Responsive */
+@media (max-width: 768px) {
+  .exp-timeline { margin-bottom: 60px; }
+  
+  .exp-item { gap: 16px; }
+  
+  .exp-timeline-side { width: 28px; }
+  
+  .exp-dot {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .exp-card {
+    padding: 20px 24px;
+    margin-bottom: 20px;
+  }
+  
+  .exp-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .exp-role {
+    font-size: 1.1rem;
+  }
+  
+  .exp-company {
+    font-size: 14px;
+  }
+  
+  .exp-meta {
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .exp-meta span {
+    font-size: 12px;
+  }
+  
+  .exp-current-badge {
+    align-self: flex-start;
+    padding: 5px 12px;
+    font-size: 11px;
+  }
+  
+  .exp-highlights {
+    margin-bottom: 16px;
+    gap: 6px;
+  }
+  
+  .exp-highlight {
+    font-size: 13px;
+    padding-left: 14px;
+  }
+  
+  .edu-section {
+    padding-top: 50px;
+  }
+  
+  .edu-card {
+    padding: 24px;
+    max-width: 100%;
+  }
+  
+  .edu-icon {
+    font-size: 28px;
+  }
+  
+  .edu-degree {
+    font-size: 1rem;
+  }
+  
+  .edu-school {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .exp-timeline { margin-bottom: 50px; }
+  
+  .exp-item { gap: 12px; }
+  
+  .exp-timeline-side { width: 24px; }
+  
+  .exp-dot {
+    width: 10px;
+    height: 10px;
+    border-width: 2px;
+    margin-top: 4px;
+  }
+  
+  .exp-line {
+    width: 1.5px;
+    margin: 6px 0;
+    min-height: 30px;
+  }
+  
+  .exp-card {
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+  
+  .exp-role {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  
+  .exp-company {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+  
+  .exp-meta {
+    gap: 4px;
+  }
+  
+  .exp-meta span {
+    font-size: 11px;
+  }
+  
+  .exp-type {
+    padding: 2px 8px;
+    font-size: 10px;
+  }
+  
+  .exp-current-badge {
+    padding: 4px 10px;
+    font-size: 10px;
+  }
+  
+  .exp-highlights {
+    margin-bottom: 14px;
+    gap: 5px;
+  }
+  
+  .exp-highlight {
+    font-size: 12px;
+    padding-left: 12px;
+    line-height: 1.5;
+  }
+  
+  .exp-highlight::before {
+    font-size: 10px;
+  }
+  
+  .exp-tech {
+    gap: 6px;
+  }
+  
+  .edu-section {
+    padding-top: 40px;
+  }
+  
+  .edu-card {
+    flex-direction: column;
+    padding: 20px;
+    gap: 16px;
+  }
+  
+  .edu-icon {
+    font-size: 24px;
+  }
+  
+  .edu-degree {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  
+  .edu-school {
+    font-size: 13px;
+  }
+  
+  .edu-location {
+    font-size: 12px;
+  }
 }

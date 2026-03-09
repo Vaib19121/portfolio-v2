@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { blogs } from '../data/portfolioData';
 import './Blogs.css';
 
@@ -17,7 +18,12 @@ export default function Blogs() {
         <div className="container">
           <div className="blogs-grid">
             {blogs.map((blog, i) => (
-              <article key={blog.id} className="blog-card" style={{'--blog-color': blog.color}}>
+              <Link 
+                key={blog.id} 
+                to={`/blogs/${blog.id}`}
+                className="blog-card" 
+                style={{'--blog-color': blog.color}}
+              >
                 <div className="bc-accent" style={{background: blog.color}} />
                 <div className="bc-header">
                   <div className="bc-tags">
@@ -29,9 +35,9 @@ export default function Blogs() {
                 <p className="bc-excerpt">{blog.excerpt}</p>
                 <div className="bc-footer">
                   <span className="bc-date">{blog.date}</span>
-                  <button className="bc-read-btn">Read More →</button>
+                  <span className="bc-read-btn">Read More →</span>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
 

@@ -184,7 +184,7 @@ export const projects = [
       "https://example.com/screenshot1.png",
       "https://example.com/screenshot2.png",
     ],
-    video: null, // Add video URL here if available
+    video: "https://vaib19121.github.io/Portfolio/assets/Videos/ChiropractorDemo.mp4", 
     links: { demo: "#", github: null },
     featured: true,
   },
@@ -302,6 +302,153 @@ export const blogs = [
     readTime: "8 min read",
     tags: ["React Native", "Performance", "Mobile"],
     color: "#00ff88",
+    author: "Vaibhav Mehar",
+    content: [
+      {
+        type: "intro",
+        text: "Performance optimization in React Native can feel overwhelming. After shipping multiple production apps with thousands of users, I've learned which optimizations actually matter and which are just premature optimization. Let me share the lessons that made a real impact."
+      },
+      {
+        type: "heading",
+        text: "1. List Virtualization with FlashList"
+      },
+      {
+        type: "paragraph",
+        text: "One of the biggest performance wins came from replacing FlatList with Shopify's FlashList for long scrollable lists. In our content feed with hundreds of items, we saw scroll performance improve from 45 FPS to 60 FPS consistently."
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `import { FlashList } from "@shopify/flash-list";
+
+<FlashList
+  data={posts}
+  renderItem={({ item }) => <PostCard post={item} />}
+  estimatedItemSize={200}
+  keyExtractor={item => item.id}
+/>`
+      },
+      {
+        type: "paragraph",
+        text: "The key is providing an accurate estimatedItemSize. FlashList uses this to efficiently recycle views and maintain smooth scrolling even with complex item layouts."
+      },
+      {
+        type: "heading",
+        text: "2. React.memo and useCallback Properly"
+      },
+      {
+        type: "paragraph",
+        text: "Memoization helps, but only when used strategically. I wrap expensive list items in React.memo and ensure callbacks are stable with useCallback:"
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `const PostCard = React.memo(({ post, onLike }) => {
+  return (
+    <TouchableOpacity onPress={() => onLike(post.id)}>
+      {/* Complex UI */}
+    </TouchableOpacity>
+  );
+});
+
+// In parent component
+const handleLike = useCallback((postId) => {
+  dispatch(likePost(postId));
+}, [dispatch]);`
+      },
+      {
+        type: "heading",
+        text: "3. Reanimated 2 for Smooth Animations"
+      },
+      {
+        type: "paragraph",
+        text: "Moving animations to Reanimated 2 was a game-changer. Animations run on the UI thread at 60 FPS without blocking JavaScript. Our swipe gestures and page transitions became buttery smooth:"
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `import Animated, { 
+  useSharedValue, 
+  useAnimatedStyle,
+  withSpring 
+} from 'react-native-reanimated';
+
+const scale = useSharedValue(1);
+
+const animatedStyle = useAnimatedStyle(() => ({
+  transform: [{ scale: scale.value }]
+}));
+
+const handlePress = () => {
+  scale.value = withSpring(1.2);
+};`
+      },
+      {
+        type: "heading",
+        text: "4. Image Optimization"
+      },
+      {
+        type: "paragraph",
+        text: "Images are often the culprit for memory issues. We implemented proper image caching with react-native-fast-image and served appropriately sized images from our CDN:"
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `import FastImage from 'react-native-fast-image';
+
+<FastImage
+  source={{
+    uri: imageUrl,
+    priority: FastImage.priority.normal,
+    cache: FastImage.cacheControl.immutable
+  }}
+  resizeMode={FastImage.resizeMode.cover}
+/>`
+      },
+      {
+        type: "heading",
+        text: "5. Redux Toolkit Query for Data Caching"
+      },
+      {
+        type: "paragraph",
+        text: "We reduced unnecessary API calls by 60% using RTK Query's automatic caching. It handles request deduplication, cache invalidation, and optimistic updates out of the box:"
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `const postsApi = createApi({
+  reducerPath: 'postsApi',
+  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  tagTypes: ['Posts'],
+  endpoints: (builder) => ({
+    getPosts: builder.query({
+      query: () => 'posts',
+      providesTags: ['Posts'],
+      keepUnusedDataFor: 300, // 5 minutes
+    }),
+  }),
+});`
+      },
+      {
+        type: "heading",
+        text: "Key Takeaways"
+      },
+      {
+        type: "list",
+        items: [
+          "Profile before optimizing — use React DevTools Profiler and Flipper",
+          "FlashList for long lists, React.memo for expensive components",
+          "Move animations to Reanimated 2 for 60 FPS smoothness",
+          "Implement proper image caching and serve optimized sizes",
+          "Use RTK Query or React Query for smart data caching",
+          "Test on low-end devices — performance issues show up there first"
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "These optimizations took our app from struggling on mid-range devices to running smoothly even on older phones. The best part? Most require minimal code changes but deliver massive UX improvements."
+      }
+    ]
   },
   {
     id: "websocket-chat",
@@ -311,6 +458,273 @@ export const blogs = [
     readTime: "10 min read",
     tags: ["WebSocket", "Socket.io", "Redux"],
     color: "#00e5ff",
+    author: "Vaibhav Mehar",
+    content: [
+      {
+        type: "intro",
+        text: "Real-time features like chat require WebSockets, but implementing them correctly in React Native has unique challenges. Here's how I built a production-ready chat system with Socket.io that handles reconnection, offline messages, and state management elegantly."
+      },
+      {
+        type: "heading",
+        text: "Setting Up Socket.io Client"
+      },
+      {
+        type: "paragraph",
+        text: "First, install socket.io-client. I create a singleton service to manage the connection lifecycle:"
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `// socketService.js
+import io from 'socket.io-client';
+
+class SocketService {
+  socket = null;
+  
+  connect(userId, token) {
+    this.socket = io('https://api.example.com', {
+      auth: { token },
+      query: { userId },
+      transports: ['websocket'],
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      reconnectionAttempts: 5,
+    });
+    
+    this.setupListeners();
+  }
+  
+  setupListeners() {
+    this.socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+    
+    this.socket.on('disconnect', () => {
+      console.log('Disconnected from server');
+    });
+  }
+  
+  disconnect() {
+    if (this.socket) {
+      this.socket.disconnect();
+      this.socket = null;
+    }
+  }
+}
+
+export default new SocketService();`
+      },
+      {
+        type: "heading",
+        text: "Redux Integration"
+      },
+      {
+        type: "paragraph",
+        text: "I use Redux Toolkit to manage chat state and integrate Socket.io events with Redux actions:"
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `// chatSlice.js
+import { createSlice } from '@reduxjs/toolkit';
+
+const chatSlice = createSlice({
+  name: 'chat',
+  initialState: {
+    conversations: {},
+    activeConversation: null,
+    isConnected: false,
+    pendingMessages: [],
+  },
+  reducers: {
+    setConnected: (state, action) => {
+      state.isConnected = action.payload;
+    },
+    addMessage: (state, action) => {
+      const { conversationId, message } = action.payload;
+      if (!state.conversations[conversationId]) {
+        state.conversations[conversationId] = [];
+      }
+      state.conversations[conversationId].push(message);
+    },
+    markMessageSent: (state, action) => {
+      const { tempId, messageId } = action.payload;
+      // Update temp message with server ID
+    },
+  },
+});
+
+export const { setConnected, addMessage, markMessageSent } = chatSlice.actions;
+export default chatSlice.reducer;`
+      },
+      {
+        type: "heading",
+        text: "Handling Reconnection Logic"
+      },
+      {
+        type: "paragraph",
+        text: "Network changes are common on mobile. I handle reconnection gracefully and resend pending messages:"
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `import NetInfo from '@react-native-community/netinfo';
+
+// In your main App component or custom hook
+useEffect(() => {
+  const unsubscribe = NetInfo.addEventListener(state => {
+    if (state.isConnected && !socketService.socket?.connected) {
+      socketService.connect(userId, token);
+      
+      // Resend pending messages
+      pendingMessages.forEach(msg => {
+        socketService.emit('message', msg);
+      });
+    }
+  });
+  
+  return () => unsubscribe();
+}, [userId, token, pendingMessages]);`
+      },
+      {
+        type: "heading",
+        text: "Custom Hook for Chat Messages"
+      },
+      {
+        type: "paragraph",
+        text: "I encapsulate the chat logic in a reusable hook:"
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `// useChat.js
+import { useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import socketService from './socketService';
+import { addMessage, setConnected } from './chatSlice';
+
+export const useChat = (conversationId) => {
+  const dispatch = useDispatch();
+  const messages = useSelector(state => 
+    state.chat.conversations[conversationId] || []
+  );
+  
+  useEffect(() => {
+    socketService.socket?.on('message', (data) => {
+      if (data.conversationId === conversationId) {
+        dispatch(addMessage({
+          conversationId,
+          message: data,
+        }));
+      }
+    });
+    
+    socketService.socket?.on('connect', () => {
+      dispatch(setConnected(true));
+    });
+    
+    socketService.socket?.on('disconnect', () => {
+      dispatch(setConnected(false));
+    });
+    
+    return () => {
+      socketService.socket?.off('message');
+    };
+  }, [conversationId, dispatch]);
+  
+  const sendMessage = useCallback((text) => {
+    const tempId = Date.now().toString();
+    const message = {
+      id: tempId,
+      conversationId,
+      text,
+      timestamp: new Date(),
+      status: 'pending',
+    };
+    
+    // Optimistic update
+    dispatch(addMessage({ conversationId, message }));
+    
+    // Send to server
+    socketService.socket?.emit('message', message, (ack) => {
+      if (ack.success) {
+        dispatch(markMessageSent({ 
+          tempId, 
+          messageId: ack.messageId 
+        }));
+      }
+    });
+  }, [conversationId, dispatch]);
+  
+  return { messages, sendMessage };
+};`
+      },
+      {
+        type: "heading",
+        text: "Chat Screen Component"
+      },
+      {
+        type: "paragraph",
+        text: "Using the hook makes the chat screen component clean and focused:"
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `const ChatScreen = ({ route }) => {
+  const { conversationId } = route.params;
+  const { messages, sendMessage } = useChat(conversationId);
+  const [text, setText] = useState('');
+  
+  const handleSend = () => {
+    if (text.trim()) {
+      sendMessage(text);
+      setText('');
+    }
+  };
+  
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={messages}
+        renderItem={({ item }) => <MessageBubble message={item} />}
+        inverted
+      />
+      <View style={styles.inputContainer}>
+        <TextInput
+          value={text}
+          onChangeText={setText}
+          placeholder="Type a message..."
+        />
+        <TouchableOpacity onPress={handleSend}>
+          <Text>Send</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};`
+      },
+      {
+        type: "heading",
+        text: "Key Takeaways"
+      },
+      {
+        type: "list",
+        items: [
+          "Use a singleton service to manage Socket.io connection lifecycle",
+          "Integrate WebSocket events with Redux for centralized state",
+          "Handle reconnection automatically with NetInfo",
+          "Implement optimistic updates for better UX",
+          "Store pending messages and resend after reconnection",
+          "Clean up socket listeners to prevent memory leaks",
+          "Use acknowledgments to confirm message delivery"
+        ]
+      },
+      {
+        type: "paragraph",
+        text: "This architecture has been battle-tested in production with thousands of concurrent users. It handles poor network conditions gracefully and provides a smooth, native-feeling chat experience."
+      }
+    ]
   },
   {
     id: "codepush-ota",
@@ -320,6 +734,203 @@ export const blogs = [
     readTime: "6 min read",
     tags: ["CodePush", "React Native", "DevOps"],
     color: "#7c3aed",
+    author: "Vaibhav Mehar",
+    content: [
+      {
+        type: "intro",
+        text: "Waiting days or weeks for App Store review to fix a critical bug is painful. CodePush lets you push JavaScript updates directly to users' devices instantly. Here's how I set it up and use it in production."
+      },
+      {
+        type: "heading",
+        text: "What is CodePush?"
+      },
+      {
+        type: "paragraph",
+        text: "CodePush is Microsoft's service that enables React Native developers to push updates directly to app users without going through the App Store. It works by replacing your JavaScript bundle and assets while keeping the native code unchanged."
+      },
+      {
+        type: "heading",
+        text: "Setting Up CodePush"
+      },
+      {
+        type: "paragraph",
+        text: "First, install the CodePush SDK and link it:"
+      },
+      {
+        type: "code",
+        language: "bash",
+        code: `npm install --save react-native-code-push
+npx react-native link react-native-code-push
+
+# Install App Center CLI
+npm install -g appcenter-cli
+appcenter login`
+      },
+      {
+        type: "paragraph",
+        text: "Create apps in App Center for iOS and Android, then grab your deployment keys:"
+      },
+      {
+        type: "code",
+        language: "bash",
+        code: `appcenter apps create -d MyApp-iOS -o iOS -p React-Native
+appcenter apps create -d MyApp-Android -o Android -p React-Native
+
+appcenter codepush deployment list -a <username>/MyApp-iOS
+appcenter codepush deployment list -a <username>/MyApp-Android`
+      },
+      {
+        type: "heading",
+        text: "Integrating in Your App"
+      },
+      {
+        type: "paragraph",
+        text: "Wrap your root component with CodePush HOC:"
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `import codePush from 'react-native-code-push';
+
+const codePushOptions = {
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  installMode: codePush.InstallMode.ON_NEXT_RESUME,
+  minimumBackgroundDuration: 60 * 10, // 10 minutes
+};
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <NavigationContainer>
+        {/* Your app */}
+      </NavigationContainer>
+    </Provider>
+  );
+};
+
+export default codePush(codePushOptions)(App);`
+      },
+      {
+        type: "heading",
+        text: "Deployment Strategy"
+      },
+      {
+        type: "paragraph",
+        text: "I use two deployments for each platform: Staging and Production. This allows testing before rolling out to all users:"
+      },
+      {
+        type: "code",
+        language: "bash",
+        code: `# Release to Staging first
+appcenter codepush release-react \\
+  -a <username>/MyApp-iOS \\
+  -d Staging \\
+  -m --description "Fix chat reconnection issue"
+
+# After testing, promote to Production
+appcenter codepush promote \\
+  -a <username>/MyApp-iOS \\
+  -s Staging \\
+  -d Production`
+      },
+      {
+        type: "heading",
+        text: "Update UI with Progress"
+      },
+      {
+        type: "paragraph",
+        text: "Show users when an update is downloading:"
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: `import codePush from 'react-native-code-push';
+
+const App = () => {
+  const [updateProgress, setUpdateProgress] = useState(null);
+  
+  useEffect(() => {
+    const syncStatusCallback = (status) => {
+      switch(status) {
+        case codePush.SyncStatus.DOWNLOADING_PACKAGE:
+          console.log('Downloading update...');
+          break;
+        case codePush.SyncStatus.INSTALLING_UPDATE:
+          console.log('Installing update...');
+          break;
+      }
+    };
+    
+    const downloadProgressCallback = (progress) => {
+      setUpdateProgress(progress);
+    };
+    
+    codePush.sync(
+      { 
+        installMode: codePush.InstallMode.ON_NEXT_RESUME,
+      },
+      syncStatusCallback,
+      downloadProgressCallback
+    );
+  }, []);
+  
+  return (
+    <View style={styles.container}>
+      {updateProgress && (
+        <View style={styles.updateBanner}>
+          <Text>Downloading update: {Math.round(updateProgress.receivedBytes / updateProgress.totalBytes * 100)}%</Text>
+        </View>
+      )}
+      {/* Rest of your app */}
+    </View>
+  );
+};`
+      },
+      {
+        type: "heading",
+        text: "Best Practices"
+      },
+      {
+        type: "list",
+        items: [
+          "Only push JS/asset changes — native code requires full app update",
+          "Test updates on Staging deployment before Production",
+          "Use mandatory updates sparingly — for critical bugs only",
+          "Set rollback policies in case something goes wrong",
+          "Monitor update adoption rates in App Center analytics",
+          "Keep update bundles small to avoid long download times",
+          "Use version targeting to avoid breaking older app versions"
+        ]
+      },
+      {
+        type: "heading",
+        text: "When to Use CodePush"
+      },
+      {
+        type: "paragraph",
+        text: "✅ Bug fixes that don't require native changes"
+      },
+      {
+        type: "paragraph",
+        text: "✅ UI/UX improvements and copy changes"
+      },
+      {
+        type: "paragraph",
+        text: "✅ Feature flags and A/B test configurations"
+      },
+      {
+        type: "paragraph",
+        text: "❌ Native module updates or third-party SDK changes"
+      },
+      {
+        type: "paragraph",
+        text: "❌ Major feature releases (users expect App Store updates)"
+      },
+      {
+        type: "paragraph",
+        text: "CodePush has been a lifesaver multiple times. When we discovered a critical crash affecting login, we pushed a fix to 100% of users within 2 hours — something impossible with traditional app updates."
+      }
+    ]
   },
   {
     id: "typescript-rn",
@@ -329,5 +940,290 @@ export const blogs = [
     readTime: "7 min read",
     tags: ["TypeScript", "React Native", "Best Practices"],
     color: "#f59e0b",
+    author: "Vaibhav Mehar",
+    content: [
+      {
+        type: "intro",
+        text: "I resisted TypeScript for a year. It seemed like unnecessary overhead. But after converting my first React Native project, I was hooked. The confidence it gives you when refactoring and the bugs it catches before runtime are game-changing."
+      },
+      {
+        type: "heading",
+        text: "The Turning Point"
+      },
+      {
+        type: "paragraph",
+        text: "We had a nasty production bug: a navigation prop was undefined, crashing the app for users on a specific flow. The bug existed for weeks because that flow wasn't hit during testing. TypeScript would have caught this immediately."
+      },
+      {
+        type: "heading",
+        text: "Setting Up TypeScript in React Native"
+      },
+      {
+        type: "paragraph",
+        text: "Modern React Native makes TypeScript setup easy:"
+      },
+      {
+        type: "code",
+        language: "bash",
+        code: `# New project with TypeScript template
+npx react-native init MyApp --template react-native-template-typescript
+
+# Existing project
+npm install --save-dev typescript @types/react @types/react-native
+npx tsc --init`
+      },
+      {
+        type: "paragraph",
+        text: "Here's my tsconfig.json for React Native:"
+      },
+      {
+        type: "code",
+        language: "json",
+        code: `{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "lib": ["es2019"],
+    "jsx": "react-native",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@utils/*": ["utils/*"],
+      "@types/*": ["types/*"]
+    }
+  },
+  "exclude": ["node_modules"]
+}`
+      },
+      {
+        type: "heading",
+        text: "Typing Navigation"
+      },
+      {
+        type: "paragraph",
+        text: "React Navigation types are powerful once you set them up correctly:"
+      },
+      {
+        type: "code",
+        language: "typescript",
+        code: `// types/navigation.ts
+export type RootStackParamList = {
+  Home: undefined;
+  Profile: { userId: string };
+  Post: { postId: string; commentId?: string };
+};
+
+declare global {
+  namespace ReactNavigation {
+    interface RootParamList extends RootStackParamList {}
+  }
+}
+
+// Now in any screen:
+import { useRoute, RouteProp } from '@react-navigation/native';
+
+type PostScreenRouteProp = RouteProp<RootStackParamList, 'Post'>;
+
+const PostScreen = () => {
+  const route = useRoute<PostScreenRouteProp>();
+  const { postId, commentId } = route.params; // ✅ Fully typed!
+  
+  return <View>...</View>;
+};`
+      },
+      {
+        type: "heading",
+        text: "API Response Types"
+      },
+      {
+        type: "paragraph",
+        text: "Define types for your API responses to catch data shape mismatches:"
+      },
+      {
+        type: "code",
+        language: "typescript",
+        code: `// types/api.ts
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+}
+
+export interface Post {
+  id: string;
+  userId: string;
+  title: string;
+  content: string;
+  likes: number;
+  createdAt: string;
+  author: User;
+}
+
+// In your API service
+const fetchPost = async (postId: string): Promise<Post> => {
+  const response = await fetch(\`/api/posts/\${postId}\`);
+  const data: Post = await response.json();
+  return data; // ✅ Type-safe
+};`
+      },
+      {
+        type: "heading",
+        text: "Redux Toolkit with TypeScript"
+      },
+      {
+        type: "paragraph",
+        text: "RTK has excellent TypeScript support. Here's how I type my slices:"
+      },
+      {
+        type: "code",
+        language: "typescript",
+        code: `// store/userSlice.ts
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { RootState } from './store';
+
+interface UserState {
+  currentUser: User | null;
+  isLoading: boolean;
+  error: string | null;
+}
+
+const initialState: UserState = {
+  currentUser: null,
+  isLoading: false,
+  error: null,
+};
+
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    setUser: (state, action: PayloadAction<User>) => {
+      state.currentUser = action.payload;
+    },
+    clearUser: (state) => {
+      state.currentUser = null;
+    },
+  },
+});
+
+// Typed selector
+export const selectCurrentUser = (state: RootState) => 
+  state.user.currentUser;
+
+export const { setUser, clearUser } = userSlice.actions;
+export default userSlice.reducer;`
+      },
+      {
+        type: "heading",
+        text: "Component Props Pattern"
+      },
+      {
+        type: "paragraph",
+        text: "I use this pattern for all component props:"
+      },
+      {
+        type: "code",
+        language: "typescript",
+        code: `interface PostCardProps {
+  post: Post;
+  onLike: (postId: string) => void;
+  onComment?: (postId: string) => void;
+  variant?: 'default' | 'compact';
+}
+
+const PostCard: React.FC<PostCardProps> = ({ 
+  post, 
+  onLike, 
+  onComment,
+  variant = 'default' 
+}) => {
+  return (
+    <TouchableOpacity onPress={() => onLike(post.id)}>
+      <Text>{post.title}</Text>
+    </TouchableOpacity>
+  );
+};
+
+export default PostCard;`
+      },
+      {
+        type: "heading",
+        text: "Utility Types I Use Daily"
+      },
+      {
+        type: "paragraph",
+        text: "TypeScript's utility types are incredibly handy:"
+      },
+      {
+        type: "code",
+        language: "typescript",
+        code: `// Pick specific fields
+type UserPreview = Pick<User, 'id' | 'name' | 'avatar'>;
+
+// Omit fields
+type UserWithoutEmail = Omit<User, 'email'>;
+
+// Partial (all optional)
+type UpdateUserPayload = Partial<User>;
+
+// Make specific fields optional
+type CreatePostPayload = Omit<Post, 'id' | 'createdAt'>;
+
+// Record for key-value maps
+type PostsById = Record<string, Post>;`
+      },
+      {
+        type: "heading",
+        text: "Benefits I've Experienced"
+      },
+      {
+        type: "list",
+        items: [
+          "Catch bugs at compile time instead of runtime",
+          "Autocomplete for everything — discover API shapes as you code",
+          "Fearless refactoring — rename props, functions, types everywhere instantly",
+          "Self-documenting code — types serve as inline documentation",
+          "Better collaboration — team members understand expected data shapes",
+          "Fewer unit tests needed — TypeScript catches many bugs tests would catch"
+        ]
+      },
+      {
+        type: "heading",
+        text: "Common Pitfalls to Avoid"
+      },
+      {
+        type: "paragraph",
+        text: "❌ Don't use 'any' — it defeats the purpose"
+      },
+      {
+        type: "paragraph",
+        text: "❌ Don't over-engineer types — start simple, refine as needed"
+      },
+      {
+        type: "paragraph",
+        text: "✅ Use unknown instead of any when you truly don't know the type"
+      },
+      {
+        type: "paragraph",
+        text: "✅ Enable strict mode — it catches more bugs"
+      },
+      {
+        type: "paragraph",
+        text: "✅ Create shared types in a /types folder for reuse"
+      },
+      {
+        type: "paragraph",
+        text: "The upfront cost of learning TypeScript pays dividends. I'm now more productive, confident, and ship fewer bugs. Every new project starts with TypeScript — no exceptions."
+      }
+    ]
   },
 ];
