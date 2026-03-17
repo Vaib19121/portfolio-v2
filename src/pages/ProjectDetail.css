@@ -16,6 +16,8 @@
   font-weight: 500;
   color: var(--text-muted);
   margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
   transition: var(--transition);
 }
 .pd-back:hover { color: var(--accent-green); transform: translateX(-4px); }

@@ -53,8 +53,8 @@ export const experiences = [
     current: true,
     highlights: [
       "Built and maintained a content creation mobile app using React Native",
-      "Implemented real-time chat with Redux Toolkit and WebSocket integration",
-      "Integrated Google Sign-In and Apple Sign-In for third-party authentication",
+     "Led end-to-end development of 5 production-grade React Native applications — Soul33, Yoke Yoga, Chiropractor Barva — collectively serving 20,000+ active users.",
+      "while also contributing to AOP implementations and multiple web applications.",
       "Added Google Maps and various third-party libraries for enhanced UX",
       "Implemented in-app purchases and push notifications for Android & iOS",
     ],
@@ -226,9 +226,9 @@ export const projects = [
  {
     id: "agentic-orchestration-platform",
     title: "Agentic Orchestration Platform (AOP)",
-    category: "Enterprise Platform",
+    category: "Web App",
     platform: "React.js · Node.js",
-    status: "MVP Deployed",
+    status: "In Development",
     year: "2024",
     description: "A self-hosted enterprise AI platform that enables organizations to build, deploy, govern, and monetize AI agents and workflows across internal systems—acting as an internal 'AI Operating System' for enterprises.",
     longDescription: "The Agentic Orchestration Platform (AOP) is a vendor-neutral, self-hosted enterprise solution that serves as the central control plane for enterprise AI. Similar in vision to Agentforce but fully extensible and on-premises, AOP connects approved systems, orchestrates agentic workflows, enforces governance policies, and provides measurable business value through packaged AI Apps, role-based Copilots, and hybrid billing models. Built for CIOs, IT teams, and business leaders who need controlled, auditable, and scalable AI adoption across their organization.",
@@ -298,7 +298,10 @@ export const projects = [
       { name: "Admin Console", desc: "Centralized governance and monitoring dashboard" },
     ],
     screenshots: [
-    
+      Dashboard,
+      BPMN,
+      Copilot,
+      Workflow
     ],
     video: null,
     links: { 

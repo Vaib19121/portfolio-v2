@@ -1,18 +1,25 @@
 import { Link } from 'react-router-dom';
+import { Smartphone, Code2, Server, Globe, Settings, Rocket } from 'lucide-react';
 import './ProjectCard.css';
 
 export default function ProjectCard({ project }) {
   const icons = {
-    'React Native': '📱', 'React.js': '⚛️', 'Node.js': '🟢',
-    'Mobile App': '📱', 'Web App': '🌐', 'Backend': '⚙️'
+    'React Native': Smartphone,
+    'React.js': Code2,
+    'Node.js': Server,
+    'Mobile App': Smartphone,
+    'Web App': Globe,
+    'Backend': Settings
   };
+
+  const IconComponent = icons[project.category] || Rocket;
 
   return (
     <Link to={`/projects/${project.id}`} className="project-card">
       <div className="pc-accent" style={{ background: project.color }} />
       <div className="pc-header">
         <div className="pc-icon" style={{ background: `${project.color}15`, color: project.color }}>
-          {icons[project.category] || '🚀'}
+          <IconComponent size={20} strokeWidth={2} />
         </div>
         <div className="pc-meta">
           <span className="tag">{project.category}</span>

@@ -1,11 +1,31 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Smartphone, Zap, Rocket, Globe, Settings, Database } from 'lucide-react';
 import { personalInfo, skills, projects } from '../data/portfolioData';
 import ProjectCard from '../components/ProjectCard';
 import SkillBar from '../components/SkillBar';
+import { TypewriterEffectCycle } from "@/components/ui/typewriter-effect";
 import './Home.css';
 
 function HeroSection() {
+  const sentences = [
+    [
+      { text: "Mobile", className: "hero-word-secondary" },
+      { text: "App", className: "hero-word-secondary" },
+      { text: "Developer", className: "hero-word-primary" },
+    ],
+    [
+      { text: "Full", className: "hero-word-secondary" },
+      { text: "Stack", className: "hero-word-secondary" },
+      { text: "Developer", className: "hero-word-primary" },
+    ],
+    [
+      { text: "React", className: "hero-word-secondary" },
+      { text: "Native", className: "hero-word-secondary" },
+      { text: "Expert", className: "hero-word-primary" },
+    ],
+  ];
+
   return (
     <section className="hero section">
       <div className="hero-bg grid-bg" />
@@ -17,8 +37,7 @@ function HeroSection() {
             Available for new opportunities
           </div>
           <h1 className="hero-title">
-            <span className="hero-line1">Mobile App</span>
-            <span className="hero-line2">Developer<span className="hero-dot-lg">.</span></span>
+            <TypewriterEffectCycle sentences={sentences} />
           </h1>
           <p className="hero-sub">
             Hi, I'm <strong>Vaibhav Mehar</strong> — crafting seamless cross-platform experiences
@@ -66,21 +85,21 @@ function HeroSection() {
             </div>
           </div>
           <div className="hero-float-card card-1">
-            <span className="hfc-icon">📱</span>
+            <span className="hfc-icon"><Smartphone size={20} strokeWidth={2} /></span>
             <div>
               <div className="hfc-title">React Native</div>
               <div className="hfc-sub">Cross-platform</div>
             </div>
           </div>
           <div className="hero-float-card card-2">
-            <span className="hfc-icon">⚡</span>
+            <span className="hfc-icon"><Zap size={20} strokeWidth={2} /></span>
             <div>
               <div className="hfc-title">2+ Years</div>
               <div className="hfc-sub">Experience</div>
             </div>
           </div>
           <div className="hero-float-card card-3">
-            <span className="hfc-icon">🚀</span>
+            <span className="hfc-icon"><Rocket size={20} strokeWidth={2} /></span>
             <div>
               <div className="hfc-title">10+ Projects</div>
               <div className="hfc-sub">Shipped</div>
@@ -152,6 +171,14 @@ function AboutSection() {
 }
 
 function SkillsSection() {
+  // Icon mapping for skill categories
+  const categoryIcons = {
+    'Mobile Development': Smartphone,
+    'Web Development': Globe,
+    'Backend Development': Settings,
+    'Database Management': Database
+  };
+
   return (
     <section className="skills-section section" id="skills">
       <div className="container">
@@ -177,15 +204,18 @@ function SkillsSection() {
               ))}
             </div>
             <div className="skills-categories">
-              {skills.categories.map(c => (
-                <div key={c.title} className="skill-cat">
-                  <span className="skill-cat-icon">{c.icon}</span>
-                  <div>
-                    <div className="skill-cat-title">{c.title}</div>
-                    <div className="skill-cat-desc">{c.desc}</div>
+              {skills.categories.map(c => {
+                const IconComponent = categoryIcons[c.title] || Rocket;
+                return (
+                  <div key={c.title} className="skill-cat">
+                    <span className="skill-cat-icon"><IconComponent size={24} strokeWidth={2} /></span>
+                    <div>
+                      <div className="skill-cat-title">{c.title}</div>
+                      <div className="skill-cat-desc">{c.desc}</div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

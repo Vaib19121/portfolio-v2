@@ -1,66 +1,83 @@
-.exp-timeline { position: relative; margin-bottom: 80px; }
-.exp-item { display: flex; gap: 24px; margin-bottom: 0; }
-.exp-timeline-side {
-  display: flex; flex-direction: column; align-items: center;
-  flex-shrink: 0; width: 32px;
-}
-.exp-dot {
-  width: 14px; height: 14px;
-  background: var(--bg-card);
-  border: 2px solid var(--border);
-  border-radius: 50%;
+/* Page Hero Section */
+.page-hero {
+  padding: 140px 0 80px;
   position: relative;
-  flex-shrink: 0;
-  margin-top: 6px;
-  transition: var(--transition);
-  z-index: 1;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
 }
-.exp-item.current .exp-dot { border-color: var(--accent-green); background: var(--accent-green); }
-.exp-dot-pulse {
-  position: absolute; inset: -4px;
-  border-radius: 50%;
-  background: rgba(0,255,136,0.2);
-  animation: pulse-glow 2s infinite;
+
+.page-hero-glow {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: radial-gradient(ellipse at top, rgba(0, 255, 136, 0.08) 0%, transparent 70%);
 }
-.exp-line {
-  width: 2px;
-  flex: 1;
-  background: var(--border);
-  margin: 8px 0;
-  min-height: 40px;
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 16px;
 }
-.exp-card {
-  flex: 1;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px 32px;
-  margin-bottom: 24px;
-  transition: var(--transition);
+
+.page-desc {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 500px;
 }
-.exp-card:hover { border-color: rgba(255,255,255,0.1); }
-.exp-item.current .exp-card { border-color: rgba(0,255,136,0.2); }
+
+
+
+.timeline-date {
+  color: var(--text-muted) !important;
+  font-family: var(--font-display) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+/* Experience Card Content */
 .exp-header {
-  display: flex; justify-content: space-between;
+  display: flex; 
+  justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 20px;
-  flex-wrap: wrap; gap: 12px;
+  flex-wrap: wrap; 
+  gap: 12px;
 }
+
 .exp-role {
   font-family: var(--font-display);
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--text-primary) !important;
   margin-bottom: 4px;
 }
+
 .exp-company {
   font-size: 15px;
-  color: var(--accent-green);
+  color: var(--accent-green) !important;
   font-weight: 500;
   margin-bottom: 10px;
 }
-.exp-meta { display: flex; gap: 16px; flex-wrap: wrap; }
-.exp-meta span { font-size: 13px; color: var(--text-muted); }
+
+.exp-meta { 
+  display: flex; 
+  gap: 16px; 
+  flex-wrap: wrap; 
+}
+
+.exp-meta span { 
+  font-size: 13px; 
+  color: var(--text-muted); 
+}
+
 .exp-type {
   padding: 3px 10px;
   border-radius: 100px;
@@ -71,11 +88,13 @@
   color: var(--text-muted);
   border: 1px solid var(--border);
 }
+
 .exp-type.current {
   background: rgba(0,255,136,0.1);
   color: var(--accent-green);
   border-color: rgba(0,255,136,0.2);
 }
+
 .exp-current-badge {
   padding: 6px 14px;
   border-radius: 100px;
@@ -87,7 +106,16 @@
   border: 1px solid rgba(0,255,136,0.3);
   animation: pulse-glow 3s infinite;
 }
-.exp-highlights { list-style: none; margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+
+.exp-highlights { 
+  list-style: none; 
+  margin: 0 0 20px 0;
+  padding: 0;
+  display: flex; 
+  flex-direction: column; 
+  gap: 8px; 
+}
+
 .exp-highlight {
   padding-left: 16px;
   font-size: 14px;
@@ -95,49 +123,71 @@
   line-height: 1.6;
   position: relative;
 }
+
 .exp-highlight::before {
   content: '→';
-  position: absolute; left: 0;
+  position: absolute; 
+  left: 0;
   color: var(--accent-green);
   font-size: 12px;
 }
-.exp-tech { display: flex; flex-wrap: wrap; gap: 8px; }
 
-.edu-section { padding-top: 60px; border-top: 1px solid var(--border); }
-.edu-card {
-  display: flex; align-items: flex-start; gap: 20px;
-  padding: 28px 32px;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  max-width: 600px;
+.exp-tech { 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 8px; 
+  margin: 0;
 }
-.edu-icon { font-size: 32px; flex-shrink: 0; }
+
+/* Education Styles */
 .edu-degree {
   font-family: var(--font-display);
   font-size: 1.1rem;
   font-weight: 700;
+  color: var(--text-primary) !important;
   margin-bottom: 6px;
 }
-.edu-school { font-size: 15px; color: var(--accent-green); margin-bottom: 4px; }
-.edu-location { font-size: 13px; color: var(--text-muted); }
+
+.edu-school { 
+  font-size: 15px; 
+  color: var(--accent-green) !important; 
+  margin-bottom: 4px; 
+}
+
+.edu-location { 
+  font-size: 13px; 
+  color: var(--text-muted) !important;
+  margin: 0;
+}
 
 /* Responsive */
-@media (max-width: 768px) {
-  .exp-timeline { margin-bottom: 60px; }
-  
-  .exp-item { gap: 16px; }
-  
-  .exp-timeline-side { width: 28px; }
-  
-  .exp-dot {
-    width: 12px;
-    height: 12px;
+@media (max-width: 1024px) {
+  .page-hero {
+    padding: 120px 0 70px;
   }
   
-  .exp-card {
-    padding: 20px 24px;
-    margin-bottom: 20px;
+  .page-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    padding: 100px 0 60px;
+  }
+  
+  .page-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: 12px;
+  }
+  
+  .page-desc {
+    font-size: 16px;
+    max-width: 100%;
+  }
+
+  .vertical-timeline-element-content {
+    padding: 20px 24px !important;
   }
   
   .exp-header {
@@ -146,11 +196,11 @@
   }
   
   .exp-role {
-    font-size: 1.1rem;
+    font-size: 1.1rem !important;
   }
   
   .exp-company {
-    font-size: 14px;
+    font-size: 14px !important;
   }
   
   .exp-meta {
@@ -178,61 +228,55 @@
     padding-left: 14px;
   }
   
-  .edu-section {
-    padding-top: 50px;
+  .timeline-date {
+    font-size: 12px !important;
   }
   
-  .edu-card {
-    padding: 24px;
-    max-width: 100%;
-  }
-  
-  .edu-icon {
-    font-size: 28px;
+  .vertical-timeline-element-icon {
+    width: 40px !important;
+    height: 40px !important;
   }
   
   .edu-degree {
-    font-size: 1rem;
+    font-size: 1rem !important;
   }
   
   .edu-school {
-    font-size: 14px;
+    font-size: 14px !important;
   }
 }
 
 @media (max-width: 480px) {
-  .exp-timeline { margin-bottom: 50px; }
-  
-  .exp-item { gap: 12px; }
-  
-  .exp-timeline-side { width: 24px; }
-  
-  .exp-dot {
-    width: 10px;
-    height: 10px;
-    border-width: 2px;
-    margin-top: 4px;
+  .page-hero {
+    padding: 85px 0 50px;
   }
   
-  .exp-line {
-    width: 1.5px;
-    margin: 6px 0;
-    min-height: 30px;
+  .page-title {
+    font-size: clamp(1.75rem, 10vw, 2.5rem);
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
   }
   
-  .exp-card {
-    padding: 16px 18px;
-    margin-bottom: 16px;
+  .page-desc {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .vertical-timeline-element-content {
+    padding: 16px 18px !important;
+  }
+  
+  .vertical-timeline-element-icon {
+    width: 32px !important;
+    height: 32px !important;
   }
   
   .exp-role {
-    font-size: 1rem;
-    margin-bottom: 6px;
+    font-size: 1rem !important;
   }
   
   .exp-company {
-    font-size: 13px;
-    margin-bottom: 8px;
+    font-size: 13px !important;
   }
   
   .exp-meta {
@@ -272,30 +316,20 @@
     gap: 6px;
   }
   
-  .edu-section {
-    padding-top: 40px;
-  }
-  
-  .edu-card {
-    flex-direction: column;
-    padding: 20px;
-    gap: 16px;
-  }
-  
-  .edu-icon {
-    font-size: 24px;
+  .timeline-date {
+    font-size: 11px !important;
   }
   
   .edu-degree {
-    font-size: 0.95rem;
+    font-size: 0.95rem !important;
     line-height: 1.4;
   }
   
   .edu-school {
-    font-size: 13px;
+    font-size: 13px !important;
   }
   
   .edu-location {
-    font-size: 12px;
+    font-size: 12px !important;
   }
 }

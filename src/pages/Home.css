@@ -51,22 +51,55 @@
 }
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-size: clamp(1rem, 3vw, 2rem);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.2;
   letter-spacing: -0.03em;
   margin-bottom: 24px;
   animation: fadeUp 0.7s 0.1s ease both;
+  display: block;
+  min-height: 1.2em;
 }
+
+.hero-title > * {
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  line-height: inherit;
+}
+
 .hero-line1 { 
   display: block; 
   color: var(--text-secondary);
   line-height: 1.05;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
 }
+
 .hero-line2 { 
   display: block; 
   color: var(--text-primary);
   line-height: 1.05;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+}
+
+.hero-word-secondary {
+  display: inline;
+  color: var(--text-secondary);
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+}
+
+.hero-word-primary {
+  display: inline;
+  color: var(--text-primary);
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
 }
 .hero-dot-lg { color: var(--accent-green); }
 .hero-sub {
@@ -228,6 +261,23 @@
   background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
+
+.about-title-typewriter .typewriter-smooth-container {
+  width: 100%;
+}
+
+.about-title-typewriter .typewriter-smooth-words {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.35em;
+}
+
+.about-title-typewriter .typewriter-smooth-word {
+  display: inline-block;
+  width: auto;
+}
+
 .about-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
 /* Skills */
@@ -319,7 +369,7 @@
 /* Responsive */
 @media (max-width: 1024px) {
   .hero-title {
-    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
   }
   .skills-grid { grid-template-columns: 1fr 1fr; }
   .skills-col-wide { grid-column: 1 / -1; }
@@ -349,9 +399,9 @@
   }
   
   .hero-title {
-    font-size: clamp(2.5rem, 10vw, 3.5rem);
+    font-size: clamp(1.25rem, 5vw, 2rem);
     margin-bottom: 20px;
-    line-height: 1.05;
+    line-height: 1.15;
   }
   
   .hero-line1,
@@ -412,9 +462,14 @@
   }
   
   .hero-title {
-    font-size: clamp(2rem, 12vw, 2.75rem);
+    font-size: clamp(1.1rem, 6vw, 1.75rem);
     margin-bottom: 16px;
     letter-spacing: -0.02em;
+  }
+  
+  .hero-word-secondary,
+  .hero-word-primary {
+    word-break: break-word;
   }
   
   .hero-sub {
