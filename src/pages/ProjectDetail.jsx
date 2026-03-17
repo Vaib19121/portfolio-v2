@@ -1,10 +1,47 @@
 import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { projects } from '../data/portfolioData';
 import './ProjectDetail.css';
 
 export default function ProjectDetail() {
   const { id } = useParams();
   const project = projects.find(p => p.id === id);
+  const [lightboxImage, setLightboxImage] = useState(null);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  // Close lightbox on Escape key
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') setLightboxImage(null);
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
+
+  const openLightbox = (image, index) => {
+    setLightboxImage(image);
+    setLightboxIndex(index);
+  };
+
+  const closeLightbox = () => {
+    setLightboxImage(null);
+  };
+
+  const nextImage = () => {
+    if (project.screenshots && lightboxIndex < project.screenshots.length - 1) {
+      const nextIndex = lightboxIndex + 1;
+      setLightboxIndex(nextIndex);
+      setLightboxImage(project.screenshots[nextIndex]);
+    }
+  };
+
+  const prevImage = () => {
+    if (lightboxIndex > 0) {
+      const prevIndex = lightboxIndex - 1;
+      setLightboxIndex(prevIndex);
+      setLightboxImage(project.screenshots[prevIndex]);
+    }
+  };
 
   if (!project) {
     return (
@@ -79,7 +116,11 @@ export default function ProjectDetail() {
               {project.screenshots && project.screenshots.length > 0 && (
                 <div className="pd-screenshots">
                   {project.screenshots.map((screenshot, idx) => (
-                    <div key={idx} className="pd-screenshot-item">
+                    <div 
+                      key={idx} 
+                      className="pd-screenshot-item"
+                      onClick={() => openLightbox(screenshot, idx)}
+                    >
                       <img 
                         src={screenshot} 
                         alt={`${project.title} screenshot ${idx + 1}`}
@@ -147,6 +188,42 @@ export default function ProjectDetail() {
           )}
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      {lightboxImage && (
+        <div className="lightbox-modal" onClick={closeLightbox}>
+          <button className="lightbox-close" onClick={closeLightbox}>×</button>
+          
+          {/* Navigation Buttons */}
+          {project.screenshots && project.screenshots.length > 1 && (
+            <>
+              <button 
+                className="lightbox-nav lightbox-prev" 
+                onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                disabled={lightboxIndex === 0}
+                style={{ opacity: lightboxIndex === 0 ? 0.3 : 1 }}
+              >
+                ‹
+              </button>
+              <button 
+                className="lightbox-nav lightbox-next" 
+                onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                disabled={lightboxIndex === project.screenshots.length - 1}
+                style={{ opacity: lightboxIndex === project.screenshots.length - 1 ? 0.3 : 1 }}
+              >
+                ›
+              </button>
+            </>
+          )}
+          
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <img src={lightboxImage} alt={project.title} />
+            <div className="lightbox-counter">
+              {lightboxIndex + 1} / {project.screenshots?.length || 1}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

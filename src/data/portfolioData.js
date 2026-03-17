@@ -1,3 +1,7 @@
+import BPMN from "@/assets/images/bpmn.webp";
+import Dashboard from "@/assets/images/dashboard.webp";
+import Workflow from "@/assets/images/workflow.webp";
+import Copilot from "@/assets/images/copilot.webp";
 export const personalInfo = {
   name: "Vaibhav Mehar",
   title: "Mobile Application Developer",
@@ -219,29 +223,101 @@ export const projects = [
     links: { demo: "#", github: null },
     featured: true,
   },
-  {
-    id: "movie-app",
-    title: "Movie Explorer",
-    category: "Mobile App",
-    platform: "React Native / Expo",
-    status: "Open Source",
-    year: "2022",
-    description: "A movie discovery app using TMDB API with Redux state management, smooth navigation, and a polished UI built with Expo.",
-    longDescription: "Movie Explorer lets users browse trending movies, search by genre, and save favorites. Powered by the TMDB API, it features a sleek dark UI, smooth screen transitions with React Navigation, and global state management via Redux. Built with Expo for rapid development and easy deployment.",
-    image: null,
-    color: "#00e5ff",
-    tech: ["React Native", "Expo", "Redux", "TMDB API", "React Navigation"],
-    features: [
-      "Browse trending & popular movies",
-      "Search by title, genre, or actor",
-      "Detailed movie pages with cast info",
-      "Save favorites to Redux store",
-      "Smooth navigation transitions",
+ {
+    id: "agentic-orchestration-platform",
+    title: "Agentic Orchestration Platform (AOP)",
+    category: "Enterprise Platform",
+    platform: "React.js · Node.js",
+    status: "MVP Deployed",
+    year: "2024",
+    description: "A self-hosted enterprise AI platform that enables organizations to build, deploy, govern, and monetize AI agents and workflows across internal systems—acting as an internal 'AI Operating System' for enterprises.",
+    longDescription: "The Agentic Orchestration Platform (AOP) is a vendor-neutral, self-hosted enterprise solution that serves as the central control plane for enterprise AI. Similar in vision to Agentforce but fully extensible and on-premises, AOP connects approved systems, orchestrates agentic workflows, enforces governance policies, and provides measurable business value through packaged AI Apps, role-based Copilots, and hybrid billing models. Built for CIOs, IT teams, and business leaders who need controlled, auditable, and scalable AI adoption across their organization.",
+    image: "/portfolio-v2/images/dashboard.webp",
+    color: "#6366f1",
+    tech: [
+      "React.js",
+      "Node.js",
+      "Redux Toolkit",
+      "REST APIs",
+      "WebSocket",
+      "MongoDB",
+      "PostgreSQL",
+      "JWT Authentication",
+      "RBAC",
+      "Material-UI",
+      "React Router",
+      "Chart.js / Recharts",
     ],
-    screenshots: [],
+    features: [
+      "Agent Orchestration Engine — runtime with permission checks, tool invocation, and retry logic",
+      "Workflow Engine — versioned BPMN-like workflows with conditional branching and human-in-the-loop approvals",
+      "App Framework — packaged AI capabilities installable per role or department",
+      "Role-Based Copilots — AI assistants restricted to approved apps, with RAG support and approval requests",
+      "Enterprise Integrations — connectors for ERP, CRM, databases, APIs with field-level access control",
+      "Governance & Audit — full RBAC enforcement, policy engine, and complete execution traceability",
+      "Hybrid Billing System — subscription, token metering, app usage, time-based, and value-based pricing",
+      "Admin Console — centralized control for apps, agents, workflows, users, and policies",
+      "App Builder UI — low-code interface to create and configure AI apps visually",
+      "Usage Analytics Dashboard — real-time insights into agent execution, token usage, and ROI metrics",
+      "Multi-Tenant Architecture — one deployment per client with tenant-isolated data",
+      "Approval Workflow UI — request and approve write actions with context and justification",
+    ],
+    highlights: [
+      { label: "Deployment", value: "Single-Tenant (Self-Hosted)" },
+      { label: "Version", value: "MVP" },
+      { label: "Target Users", value: "CIOs, IT Teams, Business Heads" },
+      { label: "Architecture", value: "Vendor-Neutral & Extensible" },
+      { label: "Governance", value: "Enterprise-Grade RBAC & Audit" },
+      { label: "Billing Models", value: "Hybrid (Subscription + Usage)" },
+    ],
+    capabilities: [
+      "Build & Deploy AI Agents with defined functions and approved tools",
+      "Orchestrate Workflows across agents, systems, and human approvals",
+      "Package AI Apps as reusable, installable capabilities",
+      "Provide Role-Based Copilots with permission-aware context",
+      "Integrate with ERP, CRM, Databases, and APIs under governance",
+      "Enforce Policies at access, execution, and data levels",
+      "Track ROI through hours saved, value delivered, and usage metrics",
+      "Support Hybrid Billing: subscriptions, tokens, app usage, and value-based pricing",
+    ],
+    problemsSolved: [
+      "Fragmented and ungoverned AI tools across the enterprise",
+      "Copilots lack workflow authority and system access",
+      "Difficult to audit and bill AI usage internally",
+      "Custom AI solutions don't scale across teams",
+      "Hard to measure ROI and value delivered by AI",
+    ],
+    coreModules: [
+      { name: "Agent Runtime", desc: "Execute agents with limits, permissions, and context passing" },
+      { name: "Workflow Engine", desc: "BPMN-like workflows with branching and approvals" },
+      { name: "App Marketplace", desc: "Install and configure versioned AI apps" },
+      { name: "Copilot Interface", desc: "Role-specific AI with RAG and approval flows" },
+      { name: "Integration Hub", desc: "Connect ERP, CRM, databases with scoped access" },
+      { name: "Policy Engine", desc: "Enforce RBAC, data policies, and execution rules" },
+      { name: "Billing Module", desc: "Metered token usage, app execution, and invoicing" },
+      { name: "Admin Console", desc: "Centralized governance and monitoring dashboard" },
+    ],
+    screenshots: [
+    
+    ],
     video: null,
-    links: { demo: "#", github: "https://github.com/Vaib19121/React-Native-Movie-App" },
-    featured: false,
+    links: { 
+      demo: null, 
+      github: null 
+    },
+    featured: true,
+    tags: [
+      "Enterprise AI",
+      "Agentic Workflows",
+      "AI Orchestration",
+      "Governance",
+      "Self-Hosted",
+      "Multi-Tenant",
+      "RBAC",
+      "AI Apps",
+      "Copilots",
+      "Billing & Monetization",
+    ],
   },
   {
     id: "iquionix",
@@ -290,7 +366,8 @@ export const projects = [
     video: null,
     links: { demo: null, github: "https://github.com/Vaib19121/Quiz-API" },
     featured: false,
-  }
+  },
+  
 ];
 
 export const blogs = [

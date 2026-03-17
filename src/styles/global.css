@@ -1,3 +1,4 @@
+@import "tailwindcss";
 :root {
   --bg-primary: #050508;
   --bg-secondary: #0d0d14;
@@ -11,8 +12,8 @@
   --text-muted: #55556a;
   --border: rgba(255,255,255,0.06);
   --border-accent: rgba(0,255,136,0.3);
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
+  --font-display: 'JetBrains Mono', monospace;
+  --font-body: 'JetBrains Mono', monospace;
   --radius: 12px;
   --radius-lg: 20px;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
