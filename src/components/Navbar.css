@@ -125,7 +125,7 @@
   
   .nav-logo { font-size: 20px; }
   
-  .nav-links, .nav-cta { display: none; }
+  .nav-links, .nav-cta { display: none !important; }
   
   .hamburger { 
     display: flex; 

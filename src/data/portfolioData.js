@@ -2,6 +2,8 @@ import BPMN from "@/assets/images/bpmn.webp";
 import Dashboard from "@/assets/images/dashboard.webp";
 import Workflow from "@/assets/images/workflow.webp";
 import Copilot from "@/assets/images/copilot.webp";
+import Agent from "@/assets/images/agent.webp";
+import AgentWorking from "@/assets/images/agentworking.webp";
 export const personalInfo = {
   name: "Vaibhav Mehar",
   title: "Mobile Application Developer",
@@ -323,6 +325,83 @@ export const projects = [
     ],
   },
   {
+    id: "pdf-image-chat",
+    title: "PDF/Image Chat",
+    category: "Backend API",
+    platform: "Node.js · LangChain",
+    status: "Production",
+    year: "2024",
+    description: "A production-ready RESTful API enabling intelligent document analysis and conversational AI with PDF and image processing via LangChain and LangGraph multi-modal agent orchestration.",
+    longDescription: "Built a sophisticated AI-powered document analysis system that combines the power of LangChain, LangGraph, and modern vector databases. The platform enables users to upload PDFs and images, then engage in intelligent conversations about their content. Using Retrieval Augmented Generation (RAG), the system provides accurate, context-aware responses by semantically searching through document embeddings stored in PostgreSQL with pgvector. The architecture leverages LangGraph for stateful multi-turn conversations with checkpointing, ensuring conversation context is maintained across sessions. Deployed with Docker Compose for easy containerization and scalability.",
+    image: "/images/agent.webp",
+    color: "#8b5cf6",
+    tech: [
+      "Node.js",
+      "Express.js",
+      "LangChain",
+      "LangGraph",
+      "PostgreSQL",
+      "pgvector",
+      "Prisma ORM",
+      "Groq LLM",
+      "Supabase",
+      "Docker",
+      "Docker Compose",
+      "JWT",
+    ],
+    features: [
+      "Multi-modal document processing — PDFs and images via LangChain",
+      "RAG (Retrieval Augmented Generation) with semantic search",
+      "Vector embeddings stored in PostgreSQL with pgvector extension",
+      "Conversational AI with LangGraph agent orchestration",
+      "Stateful conversations using LangGraph checkpointing",
+      "JWT-based authentication for secure API access",
+      "Prisma ORM for type-safe database operations",
+      "Groq LLM integration for fast inference",
+      "Supabase for cloud database hosting",
+      "Containerized deployment with Docker Compose",
+      "RESTful API design with Express.js",
+      "Document embedding pipeline for semantic similarity search",
+    ],
+    highlights: [
+      { label: "Type", value: "Personal Project" },
+      { label: "AI Framework", value: "LangChain + LangGraph" },
+      { label: "Database", value: "PostgreSQL (pgvector)" },
+      { label: "Deployment", value: "Docker Compose" },
+      { label: "LLM", value: "Groq" },
+      { label: "Status", value: "Production-Ready" },
+    ],
+    capabilities: [
+      "Upload and process PDF documents for analysis",
+      "Upload and analyze images with multi-modal AI",
+      "Ask questions about document content with RAG",
+      "Semantic search across document embeddings",
+      "Maintain stateful conversations with context",
+      "Secure authentication with JWT tokens",
+      "Scalable architecture with Docker containers",
+    ],
+    screenshots: [
+      Agent,
+      AgentWorking
+
+    ],
+    video: null,
+    links: { demo: null, github: null },
+    featured: true,
+    tags: [
+      "AI",
+      "LangChain",
+      "LangGraph",
+      "RAG",
+      "Vector Database",
+      "Document Analysis",
+      "Conversational AI",
+      "Docker",
+      "PostgreSQL",
+      "Groq",
+    ],
+  },
+  {
     id: "iquionix",
     title: "Iquionix",
     category: "Web App",
@@ -370,6 +449,7 @@ export const projects = [
     links: { demo: null, github: "https://github.com/Vaib19121/Quiz-API" },
     featured: false,
   },
+  
   
 ];
 

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Smartphone, Zap, Rocket, Globe, Settings, Database } from 'lucide-react';
+import { Smartphone, Zap, Rocket, Globe, Settings, Database, Download } from 'lucide-react';
+import resumePDF from '../assets/pdf/Vaibhav_Mehar_Resume.pdf';
 import { personalInfo, skills, projects } from '../data/portfolioData';
 import ProjectCard from '../components/ProjectCard';
 import SkillBar from '../components/SkillBar';
@@ -48,6 +49,10 @@ function HeroSection() {
               <span>View My Work</span>
               <span>→</span>
             </Link>
+            <a href={resumePDF} download="Vaibhav_Mehar_Resume.pdf" className="btn btn-outline">
+              <Download size={18} />
+              Resume
+            </a>
             <Link to="/contact" className="btn btn-outline">Get In Touch</Link>
           </div>
           <div className="hero-stats">

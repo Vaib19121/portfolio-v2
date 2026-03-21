@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Download } from 'lucide-react';
+import resumePDF from '../assets/pdf/Vaibhav_Mehar_Resume.pdf';
 import './Navbar.css';
 
 const navLinks = [
@@ -59,6 +61,16 @@ export default function Navbar() {
           ))}
         </ul>
 
+        <a 
+          href={resumePDF} 
+          download="Vaibhav_Mehar_Resume.pdf"
+          className="btn btn-outline nav-cta"
+          style={{ marginRight: '12px' }}
+        >
+          <Download size={18} />
+          Resume
+        </a>
+
         <a href="mailto:vaibhavmehar16@gmail.com" className="btn btn-primary nav-cta">
           Hire Me
         </a>
@@ -83,9 +95,18 @@ export default function Navbar() {
           </Link>
         ))}
         <a 
+          href={resumePDF}
+          download="Vaibhav_Mehar_Resume.pdf"
+          className="mobile-link"
+          style={{display: 'flex', alignItems: 'center', gap: '8px'}}
+        >
+          <Download size={18} />
+          Resume
+        </a>
+        <a 
           href="mailto:vaibhavmehar16@gmail.com" 
           className="btn btn-primary" 
-          style={{marginTop: '12px', width: '100%', textAlign: 'center'}}
+          style={{marginTop: '20px', width: '100%', textAlign: 'center'}}
         >
           Hire Me
         </a>
