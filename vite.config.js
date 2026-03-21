@@ -14,5 +14,5 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
-  base: '/portfolio-v2',
+  base: '/',
 })

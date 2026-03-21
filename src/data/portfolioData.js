@@ -232,7 +232,7 @@ export const projects = [
     year: "2024",
     description: "A self-hosted enterprise AI platform that enables organizations to build, deploy, govern, and monetize AI agents and workflows across internal systems—acting as an internal 'AI Operating System' for enterprises.",
     longDescription: "The Agentic Orchestration Platform (AOP) is a vendor-neutral, self-hosted enterprise solution that serves as the central control plane for enterprise AI. Similar in vision to Agentforce but fully extensible and on-premises, AOP connects approved systems, orchestrates agentic workflows, enforces governance policies, and provides measurable business value through packaged AI Apps, role-based Copilots, and hybrid billing models. Built for CIOs, IT teams, and business leaders who need controlled, auditable, and scalable AI adoption across their organization.",
-    image: "/portfolio-v2/images/dashboard.webp",
+    image: "/images/dashboard.webp",
     color: "#6366f1",
     tech: [
       "React.js",
